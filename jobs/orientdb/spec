@@ -1,3 +1,5 @@
 ---
 name: orientdb
-packages: [orientdb]
+packages:
+- java
+- orientdb

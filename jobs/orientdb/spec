@@ -3,3 +3,5 @@ name: orientdb
 packages:
 - java
 - orientdb
+templates:
+  pre-start: bin/pre-start

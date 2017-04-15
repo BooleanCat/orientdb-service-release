@@ -1,0 +1,10 @@
+#!/bin/bash -e
+
+LOG_DIR=/var/vcap/sys/log/orientdb
+
+main() {
+  mkdir -p $LOG_DIR
+  chown vcap:vcap $LOG_DIR
+}
+
+main

@@ -1,4 +1,4 @@
 ---
 name: orientdb
-dependencies: []
-files: []
+files:
+- orientdb/orientdb-community-2.1.2.tar.gz

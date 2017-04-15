@@ -1,1 +1,6 @@
+---
 name: orientdb-service
+blobstore:
+  provider: local
+  options:
+    blobstore_path: /tmp/orientdb-blobs

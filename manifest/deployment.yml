@@ -1,0 +1,28 @@
+---
+name: orientdb-service
+
+instance_groups:
+- name: orientdb
+  instances: 1
+  jobs:
+  - name: orientdb
+    release: orientdb-service
+  vm_type: ((orientdb_vm_type))
+  networks: ((orientdb_networks))
+  azs: ((orientdb_azs))
+  stemcell: default
+
+releases:
+- name: orientdb-service
+  version: latest
+
+stemcells:
+- alias: default
+  os: ubuntu-trusty
+  version: ((stemcell_version))
+
+update:
+  canaries: 1
+  canary_watch_time: 30000-180000
+  max_in_flight: 6
+  update_watch_time: 30000-180000

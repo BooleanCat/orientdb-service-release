@@ -8,8 +8,8 @@
 # processname: orientdb.sh
 
 # You have to SET the OrientDB installation directory here
-ORIENTDB_DIR=/var/vcap/packages/orientdb
-ORIENTDB_USER=vcap
+ORIENTDB_DIR="/foo/bar"
+ORIENTDB_USER="pikachu"
 
 usage() {
 	echo "Usage: `basename $0`: <start|stop|status>"

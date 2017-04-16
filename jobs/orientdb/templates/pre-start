@@ -1,27 +1,37 @@
 #!/bin/bash -e
 
-LOG_DIR=/var/vcap/sys/log/orientdb
-ORIENTDB_SCRIPT=/var/vcap/packages/orientdb/bin/orientdb.sh
+LOG_DIR="/var/vcap/sys/log/orientdb"
+
+ORIENTDB_USER="vcap"
+ORIENTDB_INSTALL_DIR="/var/vcap/packages/orientdb"
+ORIENTDB_TEMPLATE="${ORIENTDB_INSTALL_DIR}/bin/orientdb.sh.template"
 
 make_log_dir() {
   mkdir -p $LOG_DIR
   chown vcap:vcap $LOG_DIR
 }
 
-configure_orientdb_script() {
-  script_path="$1"
+template_orientdb_script() {
+  template="$1"
+  install_dir="$2"
+  user="$3"
 
   sed -e \
-    's#ORIENTDB_DIR="YOUR_ORIENTDB_INSTALLATION_PATH"#ORIENTDB_DIR=/var/vcap/packages/orientdb#g' \
+    "s#YOUR_ORIENTDB_INSTALLATION_PATH#${install_dir}#g" \
     <<< \
   sed -e \
-    's#ORIENTDB_USER="USER_YOU_WANT_ORIENTDB_RUN_WITH"#ORIENTDB_USER=vcap#g' \
-    "${script_path}"
+    "s#USER_YOU_WANT_ORIENTDB_RUN_WITH#${user}#g" \
+    "${template}"
 }
 
 main() {
   make_log_dir
-  configure_orientdb_script "${ORIENTDB_SCRIPT}" > "${ORIENTDB_SCRIPT}"
+
+  template_orientdb_script \
+    "${ORIENTDB_TEMPLATE}" \
+    "${ORIENTDB_INSTALL_DIR}" \
+    "${ORIENTDB_USER}" \
+  > "${ORIENTDB_INSTALL_DIR}/bin/orientdb.sh"
 }
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then

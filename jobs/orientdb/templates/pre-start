@@ -1,25 +1,29 @@
 #!/bin/bash -e
 
 LOG_DIR=/var/vcap/sys/log/orientdb
+ORIENTDB_SCRIPT=/var/vcap/packages/orientdb/bin/orientdb.sh
 
 make_log_dir() {
   mkdir -p $LOG_DIR
   chown vcap:vcap $LOG_DIR
 }
 
-update_orientdb_script() {
-  sed -i -e \
-    's#ORIENTDB_DIR="YOUR_ORIENTDB_INSTALLATION_PATH"#ORIENTDB_DIR=/var/vcap/packages/orientdb#g' \
-    /var/vcap/packages/orientdb/bin/orientdb.sh
+configure_orientdb_script() {
+  script_path="$1"
 
-  sed -i -e \
+  sed -e \
+    's#ORIENTDB_DIR="YOUR_ORIENTDB_INSTALLATION_PATH"#ORIENTDB_DIR=/var/vcap/packages/orientdb#g' \
+    <<< \
+  sed -e \
     's#ORIENTDB_USER="USER_YOU_WANT_ORIENTDB_RUN_WITH"#ORIENTDB_USER=vcap#g' \
-    /var/vcap/packages/orientdb/bin/orientdb.sh
+    "${script_path}"
 }
 
 main() {
   make_log_dir
-  update_orientdb_script
+  configure_orientdb_script "${ORIENTDB_SCRIPT}" > "${ORIENTDB_SCRIPT}"
 }
 
-main
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+  main "$@"
+fi

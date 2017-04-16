@@ -22,5 +22,5 @@ source ../../jobs/orientdb/templates/pre-start
   local templated="$( template_orientdb_script "$DIR/assets/simple-orientdb.sh" "/foo/bar" "pikachu" )"
   local expected="$( cat "$DIR/assets/expected-orientdb.sh" )"
 
-  [ "${templated}" == "${expected}" ]
+  [ "${templated}" = "${expected}" ]
 }

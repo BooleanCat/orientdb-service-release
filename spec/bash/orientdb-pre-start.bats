@@ -24,3 +24,8 @@ source ../../jobs/orientdb/templates/pre-start
 
   [ "${templated}" = "${expected}" ]
 }
+
+@test "template_orientdb_script returns 1 if not called with 3 arguments" {
+  run template_orientdb_script "${DIR}/assets/simple-orientdb.sh" "/foo/bar"
+  [ $status = 1 ]
+}

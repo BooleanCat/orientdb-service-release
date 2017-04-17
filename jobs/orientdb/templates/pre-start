@@ -12,6 +12,11 @@ make_log_dir() {
 }
 
 template_orientdb_script() {
+  if [[ $# -ne 3 ]]; then
+    echo "expected 3 arguments with call to template_orientdb_script" 1>&2
+    return 1
+  fi
+
   template="$1"
   install_dir="$2"
   user="$3"

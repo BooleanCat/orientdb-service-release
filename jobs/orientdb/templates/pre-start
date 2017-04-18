@@ -6,20 +6,18 @@ ORIENTDB_USER="vcap"
 ORIENTDB_INSTALL_DIR="/var/vcap/packages/orientdb"
 ORIENTDB_TEMPLATE="${ORIENTDB_INSTALL_DIR}/bin/orientdb.sh.template"
 
-make_log_dir() {
-  mkdir -p $LOG_DIR
-  chown vcap:vcap $LOG_DIR
+ensure_dir() {
+  local dir="$1"
+  local user_and_group="$2"
+
+  mkdir -p "$1"
+  chown "$2" "$1"
 }
 
 template_orientdb_script() {
-  if [[ $# -ne 3 ]]; then
-    echo "expected 3 arguments with call to template_orientdb_script" 1>&2
-    return 1
-  fi
-
-  template="$1"
-  install_dir="$2"
-  user="$3"
+  local template="$1"
+  local install_dir="$2"
+  local user="$3"
 
   sed -e \
     "s#YOUR_ORIENTDB_INSTALLATION_PATH#${install_dir}#g" \
@@ -30,7 +28,7 @@ template_orientdb_script() {
 }
 
 main() {
-  make_log_dir
+  ensure_dir "$LOG_DIR" vcap:vcap
 
   template_orientdb_script \
     "${ORIENTDB_TEMPLATE}" \

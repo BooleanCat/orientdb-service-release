@@ -7,16 +7,11 @@ RUN git clone https://github.com/sstephenson/bats.git
 RUN cd bats && ./install.sh /usr/local
 RUN rm -rf bats
 
-# create test user
-RUN useradd -ms /bin/bash test
-RUN echo test:funky92horse | chpasswd
-
 # create vcap user
 RUN useradd -ms /bin/bash vcap
 RUN echo vcap:vcap1234 | chpasswd
 
-# setup test user
+# setup test home
 ENV TEST_HOME /home/test
-USER test
 ENV HOME /home/test
 WORKDIR $HOME

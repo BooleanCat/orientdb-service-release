@@ -29,9 +29,27 @@ source "${PROJECT_ROOT}/jobs/orientdb/templates/pre-start"
   [ "$output" = "$expected" ]
 }
 
-@test "template_orientdb_script returns 1 if not called with 3 arguments" {
-  run template_orientdb_script "${ASSETS_DIR}/simple-orientdb.sh" "/foo/bar"
+@test "ensure_dir" {
+  local some_dir="$( mktemp -d )"
+  run ensure_dir "${some_dir}/foo" vcap:vcap
 
-  [ "$status" = 1 ]
-  [ "$output" = "expected 3 arguments with call to template_orientdb_script" ]
+  [ "$status" -eq 0 ]
+  [ "$( ls "$some_dir" )" = "foo" ]
+
+  [ "$( owner_and_group "${some_dir}/foo" )" = "vcap:vcap" ]
+}
+
+@test "ensure_dir updates owner and group on existing dir" {
+  local some_dir="$( mktemp -d )"
+  [ "$( owner_and_group "$some_dir" )" = "root:root" ]
+
+  run ensure_dir "$some_dir" vcap:vcap
+
+  [ "$status" -eq 0 ]
+  [ "$( owner_and_group "$some_dir" )" == "vcap:vcap" ]
+}
+
+owner_and_group() {
+  local dir="$1"
+  ls -ld "$dir" | awk '{print $3 ":" $4}'
 }

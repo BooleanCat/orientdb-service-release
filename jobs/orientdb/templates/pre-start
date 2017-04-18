@@ -37,6 +37,6 @@ main() {
   > "${ORIENTDB_INSTALL_DIR}/bin/orientdb.sh"
 }
 
-if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+if [[ "${BASH_SOURCE[0]}" = "${0}" ]]; then
   main "$@"
 fi

@@ -46,7 +46,7 @@ setup() {
   run ensure_dir "$test_dir" vcap:vcap
 
   [ "$status" -eq 0 ]
-  [ "$( owner_and_group "$test_dir" )" == "vcap:vcap" ]
+  [ "$( owner_and_group "$test_dir" )" = "vcap:vcap" ]
 }
 
 owner_and_group() {

@@ -5,6 +5,11 @@ ASSETS_DIR="${PROJECT_ROOT}/spec/bash/assets"
 
 source "${PROJECT_ROOT}/jobs/orientdb/templates/pre-start"
 
+setup() {
+  test_dir="$( mktemp -d )"
+  [ "$( owner_and_group "$test_dir" )" = "root:root" ]
+}
+
 @test "LOG_DIR is correct" {
   [ "${LOG_DIR}" = "/var/vcap/sys/log/orientdb" ]
 }
@@ -30,23 +35,18 @@ source "${PROJECT_ROOT}/jobs/orientdb/templates/pre-start"
 }
 
 @test "ensure_dir" {
-  local some_dir="$( mktemp -d )"
-  run ensure_dir "${some_dir}/foo" vcap:vcap
+  run ensure_dir "${test_dir}/foo" vcap:vcap
 
   [ "$status" -eq 0 ]
-  [ "$( ls "$some_dir" )" = "foo" ]
-
-  [ "$( owner_and_group "${some_dir}/foo" )" = "vcap:vcap" ]
+  [ "$( ls "$test_dir" )" = "foo" ]
+  [ "$( owner_and_group "${test_dir}/foo" )" = "vcap:vcap" ]
 }
 
 @test "ensure_dir updates owner and group on existing dir" {
-  local some_dir="$( mktemp -d )"
-  [ "$( owner_and_group "$some_dir" )" = "root:root" ]
-
-  run ensure_dir "$some_dir" vcap:vcap
+  run ensure_dir "$test_dir" vcap:vcap
 
   [ "$status" -eq 0 ]
-  [ "$( owner_and_group "$some_dir" )" == "vcap:vcap" ]
+  [ "$( owner_and_group "$test_dir" )" == "vcap:vcap" ]
 }
 
 owner_and_group() {

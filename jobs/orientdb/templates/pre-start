@@ -1,17 +1,17 @@
 #!/bin/bash -e
 
-LOG_DIR="/var/vcap/sys/log/orientdb"
+LOG_DIR=/var/vcap/sys/log/orientdb
 
-ORIENTDB_USER="vcap"
-ORIENTDB_INSTALL_DIR="/var/vcap/packages/orientdb"
+ORIENTDB_USER=vcap
+ORIENTDB_INSTALL_DIR=/var/vcap/packages/orientdb
 ORIENTDB_TEMPLATE="${ORIENTDB_INSTALL_DIR}/bin/orientdb.sh.template"
 
 ensure_dir() {
   local dir="$1"
   local user_and_group="$2"
 
-  mkdir -p "$1"
-  chown "$2" "$1"
+  mkdir -p "$dir"
+  chown "$user_and_group" "$dir"
 }
 
 template_orientdb_script() {
@@ -24,19 +24,19 @@ template_orientdb_script() {
     <<< \
   sed -e \
     "s#USER_YOU_WANT_ORIENTDB_RUN_WITH#${user}#g" \
-    "${template}"
+    "$template"
 }
 
 main() {
   ensure_dir "$LOG_DIR" vcap:vcap
 
   template_orientdb_script \
-    "${ORIENTDB_TEMPLATE}" \
-    "${ORIENTDB_INSTALL_DIR}" \
-    "${ORIENTDB_USER}" \
+    "$ORIENTDB_TEMPLATE" \
+    "$ORIENTDB_INSTALL_DIR" \
+    "$ORIENTDB_USER" \
   > "${ORIENTDB_INSTALL_DIR}/bin/orientdb.sh"
 }
 
-if [[ "${BASH_SOURCE[0]}" = "${0}" ]]; then
+if [[ "${BASH_SOURCE[0]}" = "$0" ]]; then
   main "$@"
 fi

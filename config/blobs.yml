@@ -2,7 +2,7 @@ java/jre-8u121-linux-x64.tar.gz:
   size: 73676107
   object_id: 71d4d12a-bce8-4793-7cc6-faec9e4ac1db
   sha: f62168513348184e3d18c69795ecb220456514a3
-orientdb/orientdb-community-2.1.2.tar.gz:
-  size: 28708901
-  object_id: a4bf03ad-ef67-4438-7da1-024f76f9c8b8
-  sha: 34a45ec6ab0b99858fb43195cd857f60072184ad
+orientdb/orientdb-community-2.2.18.tar.gz:
+  size: 43062770
+  object_id: 3d2e6df4-09c3-49e7-5a22-bc9eefc6b35b
+  sha: dc866f6b8be40eec43b71fbee3548ec8b2f423e6

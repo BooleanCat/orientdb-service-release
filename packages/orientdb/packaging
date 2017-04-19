@@ -9,7 +9,7 @@ rename_orientdb_script() {
 }
 
 tar xvf \
-  orientdb/orientdb-community-2.1.2.tar.gz \
+  orientdb/orientdb-community-2.2.18.tar.gz \
   -C $BOSH_INSTALL_TARGET \
   --strip-components 1 \
   --exclude="*.bat"

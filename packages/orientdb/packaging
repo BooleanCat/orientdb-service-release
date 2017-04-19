@@ -1,16 +1,16 @@
 #!/bin/bash -e
 
-ORIENTDB_SCRIPT=$BOSH_INSTALL_TARGET/bin/orientdb.sh
+ORIENTDB_SCRIPT="${BOSH_INSTALL_TARGET}/bin/orientdb.sh"
 
 rename_orientdb_script() {
   # orientdb requires modification of `orientdb.sh`
   # preserve original for idempotency
-  mv "${ORIENTDB_SCRIPT}" "${ORIENTDB_SCRIPT}.template"
+  mv "$ORIENTDB_SCRIPT" "${ORIENTDB_SCRIPT}.template"
 }
 
 tar xvf \
   orientdb/orientdb-community-2.2.18.tar.gz \
-  -C $BOSH_INSTALL_TARGET \
+  -C "$BOSH_INSTALL_TARGET" \
   --strip-components 1 \
   --exclude="*.bat"
 

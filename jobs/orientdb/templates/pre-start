@@ -35,6 +35,8 @@ main() {
     "$ORIENTDB_INSTALL_DIR" \
     "$ORIENTDB_USER" \
   > "${ORIENTDB_INSTALL_DIR}/bin/orientdb.sh"
+
+  chmod +rx "${ORIENTDB_INSTALL_DIR}/bin/orientdb.sh"
 }
 
 if [[ "${BASH_SOURCE[0]}" = "$0" ]]; then

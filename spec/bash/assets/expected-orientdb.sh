@@ -10,6 +10,7 @@
 # You have to SET the OrientDB installation directory here
 ORIENTDB_DIR="/foo/bar"
 ORIENTDB_USER="pikachu"
+LOG_DIR="/some/crazy/log/dir"
 
 usage() {
 	echo "Usage: `basename $0`: <start|stop|status>"

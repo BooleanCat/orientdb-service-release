@@ -28,7 +28,7 @@ setup() {
 
 @test "template_orientdb_script" {
   local expected="$( cat "${ASSETS_DIR}/expected-orientdb.sh" )"
-  run template_orientdb_script "${ASSETS_DIR}/simple-orientdb.sh" "/foo/bar" "pikachu"
+  run template_orientdb_script "${ASSETS_DIR}/simple-orientdb.sh" /foo/bar pikachu /some/crazy/log/dir
 
   [ "$status" -eq 0 ]
   [ "$output" = "$expected" ]

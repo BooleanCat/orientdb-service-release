@@ -18,7 +18,11 @@ template_orientdb_script() {
   local template="$1"
   local install_dir="$2"
   local user="$3"
+  local log_dir="$4"
 
+  sed -e \
+    "s#LOG_DIR=\"../log\"#LOG_DIR=\"${log_dir}\"#g" \
+    <<< \
   sed -e \
     "s#YOUR_ORIENTDB_INSTALLATION_PATH#${install_dir}#g" \
     <<< \
@@ -34,6 +38,7 @@ main() {
     "$ORIENTDB_TEMPLATE" \
     "$ORIENTDB_INSTALL_DIR" \
     "$ORIENTDB_USER" \
+    "$LOG_DIR" \
   > "${ORIENTDB_INSTALL_DIR}/bin/orientdb.sh"
 
   chmod +rx "${ORIENTDB_INSTALL_DIR}/bin/orientdb.sh"

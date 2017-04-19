@@ -10,6 +10,7 @@
 # You have to SET the OrientDB installation directory here
 ORIENTDB_DIR="YOUR_ORIENTDB_INSTALLATION_PATH"
 ORIENTDB_USER="USER_YOU_WANT_ORIENTDB_RUN_WITH"
+LOG_DIR="../log"
 
 usage() {
 	echo "Usage: `basename $0`: <start|stop|status>"

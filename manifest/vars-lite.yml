@@ -3,5 +3,5 @@ orientdb_vm_type: default
 orientdb_networks:
 - name: default
 orientdb_azs: [default]
-stemcell_version: "3363.15"
+stemcell_version: "3363.19"
 orientdb_vm_type: default
